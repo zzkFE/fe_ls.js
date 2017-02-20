@@ -1,0 +1,61 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <title>localStorage做前端加载性能优化与安全性防护</title>
+    <style>
+        #pagelog{
+            line-height:2.1;
+            font-size:19px;
+            font-family: "Microsoft YaHei","STHeiti Light","STXihei","Trebuchet MS","Titillium Web", "FontAwesome", Helvetica, Tahoma, Arial, "Microsoft JhengHei";
+        }
+   </style>
+ </head>
+ <body>
+    <div id="pagelog">
+          
+    </div>
+    <script type="text/javascript" src="dist/jquery3.1.1.min.js"></script>
+   <script type="text/javascript" src="dist/fe_ls.min.js"></script>
+   <script>
+      var myLS = fe_ls.load({
+              regular_map:{
+                  "LStest/test1.css":{
+                      "url":"LStest/test1.css",
+                      "key":"2a060e9622282822b0cefeabd63b739b077a6aa2"  //校验
+                  },
+                  "LStest/test2.css":{
+                      "url":"LStest/test2.css",
+                      "key":"bd80775b9681b3b47c180b21883a22bd7ae9d734"
+                  },
+                  "LStest/test1.js":{
+                      "url":"LStest/test1.js",
+                      "key":"72a87eef9e3a768291c57d81fdd0dc94f692f0f4"
+                  },
+                  "LStest/test2.js":{
+                      "url":"LStest/test2.js",
+                      "key":"9f4baa42910804513c424b43c497c14e686f1f10"
+                  },
+                  "LStest/test.json":{
+                      "url":"LStest/test.json",
+                      "key":"860dcce54ba99df55f86a72962ee2b5c0dd0db51"
+                  },
+                  "LStest/test.str":{
+                      "url":"LStest/test.str",
+                      "key":"2cfa674e9c296e1d941bea9ac1da4d2337c158e1"
+                  }
+              },
+              loadSuccess:function(key,path,data,type){
+                  if(type=="ajax"){
+                      $("#pagelog").append("【远程请求文件】"+key+"加载成功。文件地址"+path.url+"<br/>");
+                  }
+                  else{
+                      $("#pagelog").append("【本地缓存文件】"+key+"加载成功。<br/>");
+                  }
+                 
+              }
+          });
+   </script>
+ </body>
+
+ </html>
